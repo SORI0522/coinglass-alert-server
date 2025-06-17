@@ -80,7 +80,9 @@ def start_monitor():
 DISCORD_WEBHOOK_URL = "https://discordapp.com/api/webhooks/1384457126532878438/r35TL3ibVrDLQWHxuKxMzemkoHmxIscCwGyZxULzWnxuUd_FjkaJ3zGhfyhd4XF9T0nC"
 
 def send_discord_alert(message):
-    payload = {"content": message}
+    payload = {
+        "content": f"@everyone\n📢 {message}"
+    }
     try:
         r = requests.post(DISCORD_WEBHOOK_URL, json=payload)
         if r.status_code != 204:
