@@ -53,7 +53,7 @@ def get_alerts(symbol):
                 alerts.append(f"{symbol} 청산 총합 변화 - 롱: ${long_liq:,.0f}, 숏: ${short_liq:,.0f}")
 
         # 6. 대형 청산 주문 (실시간 데이터)
-        r = requests.get(f"https://open-api-v4.coinglass.com/api/futures/liquidation/order?exchange=Binance&symbol={symbol}&min_liquidation_amount=100000", headers=headers).json()
+        r = requests.get(f"https://open-api-v4.coinglass.com/api/futures/liquidation/order?exchange=Binance&symbol={symbol}&min_liquidation_amount=300000", headers=headers).json()
         if "data" in r and len(r["data"]) > 0:
             for liq in r["data"]:
                 usd = liq["usd_value"]
