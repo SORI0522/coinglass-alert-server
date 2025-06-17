@@ -39,10 +39,13 @@ def send_alert(msg):
     except:
         pass
 
-while True:
-    for sym in SYMBOLS:
-        msgs = get_alerts(sym)
-        for m in msgs:
-            send_alert(m)
-    print(f"[{datetime.now().strftime('%H:%M:%S')}] 체크 완료")
-    time.sleep(300)  # 5분마다 반복
+# ✅ 기존의 while True 루프 삭제하고 함수로 바꿈
+
+def start_monitor():
+    while True:
+        for sym in SYMBOLS:
+            msgs = get_alerts(sym)
+            for m in msgs:
+                send_alert(m)
+        print(f"[{datetime.now().strftime('%H:%M:%S')}] 체크 완료")
+        time.sleep(300)
