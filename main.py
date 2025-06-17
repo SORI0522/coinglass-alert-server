@@ -41,7 +41,8 @@ def get_alerts(symbol):
         if "data" in r and "buy_ratio" in r["data"]:
             buy = r["data"]["buy_ratio"]
             if buy >= 55 or buy <= 45:
-                alerts.append(f"{symbol} Taker Buy 이상치: {buy:.2f}%")
+                bias = "롱 우세 📈" if buy >= 55 else "숏 우세 📉"
+                alerts.append(f"{symbol} Taker Buy 이상치: {buy:.2f}% → {bias}")
 
         # 5. 청산 총합
         r = requests.get(f"https://open-api-v4.coinglass.com/api/futures/liquidation/aggregated-history?exchange_list=Binance&symbol={symbol}&interval={INTERVAL}", headers=headers).json()
