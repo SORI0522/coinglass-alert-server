@@ -6,14 +6,14 @@ app = Flask(__name__)
 def alert():
     try:
         content_type = request.content_type
-        print("📨 Content-Type:", content_type)
+        print("📨 Content-Type:", content_type, flush=True)
 
-        data = request.get_data(as_text=True)  # 모든 형식 수용
-        print("📩 TradingView 알림 수신:", data)
+        data = request.get_data(as_text=True)
+        print("📩 TradingView 알림 수신:", data, flush=True)
 
         return '', 200
     except Exception as e:
-        print("❌ 에러 발생:", e)
+        print("❌ 에러 발생:", e, flush=True)
         return 'Error', 500
 
 if __name__ == '__main__':
