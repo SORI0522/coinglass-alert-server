@@ -17,7 +17,7 @@ def get_alerts(symbol):
         if "data" in r and len(r["data"]) >= 2:
             now, prev = r["data"][-1], r["data"][-2]
             change = now["top_account_long_percent"] - prev["top_account_long_percent"]
-            if abs(change) >= 2:
+            if abs(change) >= 1:
                 alerts.append(f"{symbol} Top 계정 비율 급변: {change:+.2f}%")
 
         # 2. Top 포지션 롱숏 비율
@@ -25,7 +25,7 @@ def get_alerts(symbol):
         if "data" in r and len(r["data"]) >= 2:
             now, prev = r["data"][-1], r["data"][-2]
             change = now["top_position_long_percent"] - prev["top_position_long_percent"]
-            if abs(change) >= 2:
+            if abs(change) >= 1:
                 alerts.append(f"{symbol} Top 포지션 비율 급변: {change:+.2f}%")
 
         # 3. 글로벌 계정 롱숏 비율
@@ -33,7 +33,7 @@ def get_alerts(symbol):
         if "data" in r and len(r["data"]) >= 2:
             now, prev = r["data"][-1], r["data"][-2]
             change = now["global_account_long_percent"] - prev["global_account_long_percent"]
-            if abs(change) >= 2:
+            if abs(change) >= 1:
                 alerts.append(f"{symbol} 글로벌 계정 비율 변화: {change:+.2f}%")
 
         # 4. Taker 매수/매도 비율
