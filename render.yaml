@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: coinglass-alert-server
+    env: python
+    plan: free
+    buildCommand: ""
+    startCommand: "python webhook_server.py"
+    envVars:
+      - key: PORT
+        value: 5000
