@@ -78,6 +78,21 @@ def start_monitor():
             msgs = get_alerts(sym)
             for m in msgs:
                 print(f"📩 {m}")
-                send_alert(m)
-        print(f"[{datetime.now().strftime('%H:%M:%S')}] 체크 완료")
+                send_alert(m)              # 기존 서버 웹훅 전송
+                send_discord_alert(m)     # 디스코드 알림 전송 ← 추가
+                        print(f"[{datetime.now().strftime('%H:%M:%S')}] 체크 완료")
         time.sleep(300)
+
+DISCORD_WEBHOOK_URL = "https://discordapp.com/api/webhooks/1384457126532878438/r35TL3ibVrDLQWHxuKxMzemkoHmxIscCwGyZxULzWnxuUd_FjkaJ3zGhfyhd4XF9T0nC"
+
+def send_discord_alert(message):
+    payload = {"content": message}
+    try:
+        r = requests.post(DISCORD_WEBHOOK_URL, json=payload)
+        if r.status_code != 204:
+            print(f"[❗] Discord 전송 실패: {r.status_code} / {r.text}")
+        else:
+            print("[✅] Discord 알림 전송 성공")
+    except Exception as e:
+        print(f"[🚨] Discord 전송 에러: {e}")
+
