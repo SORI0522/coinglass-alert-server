@@ -78,10 +78,11 @@ def start_monitor():
             msgs = get_alerts(sym)
             for m in msgs:
                 print(f"📩 {m}")
-                send_alert(m)              # 기존 서버 웹훅 전송
-                send_discord_alert(m)     # 디스코드 알림 전송 ← 추가
-                        print(f"[{datetime.now().strftime('%H:%M:%S')}] 체크 완료")
+                send_alert(m)
+                send_discord_alert(m)     # 디스코드 알림 전송
+        print(f"[{datetime.now().strftime('%H:%M:%S')}] 체크 완료")  # ← 이 줄 들여쓰기 위치 주의!
         time.sleep(300)
+
 
 DISCORD_WEBHOOK_URL = "https://discordapp.com/api/webhooks/1384457126532878438/r35TL3ibVrDLQWHxuKxMzemkoHmxIscCwGyZxULzWnxuUd_FjkaJ3zGhfyhd4XF9T0nC"
 
