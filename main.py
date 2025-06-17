@@ -5,7 +5,6 @@ from datetime import datetime
 API_KEY = "c85b840453a5460bb16a5fa8a6e217f3"
 WEBHOOK_URL = "https://coinglass-alert-server.onrender.com/alert"
 DISCORD_WEBHOOK_URL = "https://discordapp.com/api/webhooks/1384457126532878438/r35TL3ibVrDLQWHxuKxMzemkoHmxIscCwGyZxULzWnxuUd_FjkaJ3zGhfyhd4XF9T0nC"
-SLACK_WEBHOOK_URL = "https://hooks.slack.com/services/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"
 SYMBOLS = ["BTC", "ETH", "SOL", "XRP", "HYPE", "DOGE", "SUI", "ADA", "1000PEPE"]
 INTERVAL = "m5"
 headers = {"accept": "application/json", "CG-API-KEY": API_KEY}
@@ -75,8 +74,7 @@ def start_monitor():
             for m in msgs:
                 print(f"📩 {m}")
                 send_alert(m)
-                send_discord_alert(m)     # 디스코드 알림 전송
-                send_slack_alert(m)
+                send_discord_alert(m)     # 디스코드 알림 전송                
         print(f"[{datetime.now().strftime('%H:%M:%S')}] 체크 완료")  # ← 이 줄 들여쓰기 위치 주의!
         time.sleep(300)
 
@@ -95,16 +93,6 @@ def send_discord_alert(message):
         print(f"[🚨] Discord 전송 에러: {e}")
 
 
-def send_slack_alert(message):
-    payload = {"text": f":rotating_light: {message}"}
-    try:
-        r = requests.post(SLACK_WEBHOOK_URL, json=payload)
-        if r.status_code != 200:
-            print(f"[❗] Slack 전송 실패: {r.status_code} / {r.text}")
-        else:
-            print("[✅] Slack 알림 전송 성공")
-    except Exception as e:
-        print(f"[🚨] Slack 전송 에러: {e}")
 
 
 
