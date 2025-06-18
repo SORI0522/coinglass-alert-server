@@ -2,11 +2,6 @@
 import requests, time
 from datetime import datetime
 
-def wait_until_next_quarter():
-    now = datetime.now()
-    wait_sec = 900 - (now.minute % 15) * 60 - now.second
-    print(f"[⏳] {wait_sec}초 대기 후 실행...")
-    time.sleep(wait_sec)
 
 API_KEY = "c85b840453a5460bb16a5fa8a6e217f3"
 WEBHOOK_URL = "https://coinglass-alert-server.onrender.com/alert"
