@@ -41,7 +41,7 @@ def get_alerts(symbol):
         r = requests.get(f"https://open-api-v4.coinglass.com/api/futures/taker-buy-sell-volume/exchange-list?symbol={symbol}&range={INTERVAL}", headers=headers).json()
         if "data" in r and "buy_ratio" in r["data"]:
             buy = r["data"]["buy_ratio"]
-            if buy >= 60 or buy <= 40:
+            if buy >= 55 or buy <= 45:
                 bias = "롱 우세 📈" if buy >= 55 else "숏 우세 📉"
                 alerts.append(f"{symbol} Taker Buy 이상치: {buy:.2f}% → {bias}")
 
