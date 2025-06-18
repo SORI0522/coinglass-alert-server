@@ -6,7 +6,7 @@ API_KEY = "c85b840453a5460bb16a5fa8a6e217f3"
 WEBHOOK_URL = "https://coinglass-alert-server.onrender.com/alert"
 DISCORD_WEBHOOK_URL = "https://discordapp.com/api/webhooks/1384457126532878438/r35TL3ibVrDLQWHxuKxMzemkoHmxIscCwGyZxULzWnxuUd_FjkaJ3zGhfyhd4XF9T0nC"
 SYMBOLS = ["BTC", "ETH", "SOL", "XRP", "HYPE", "DOGE", "SUI", "ADA", "1000PEPE"]
-INTERVAL = "m5"
+INTERVAL = "m15"
 headers = {"accept": "application/json", "CG-API-KEY": API_KEY}
 
 def get_alerts(symbol):
