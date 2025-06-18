@@ -1,6 +1,6 @@
 # main.py
 import requests, time
-from datetime import datetime
+from datetime import datetime, timedelta
 
 
 API_KEY = "c85b840453a5460bb16a5fa8a6e217f3"
@@ -58,7 +58,7 @@ def get_alerts(symbol):
         # 6. 대형 청산 주문 (실시간 데이터)
         r = requests.get(f"https://open-api-v4.coinglass.com/api/futures/liquidation/order?exchange=Binance&symbol={symbol}&min_liquidation_amount=50000000", headers=headers).json()
         if "data" in r and len(r["data"]) > 0:
-            for liq in r["data"]:
+            for liq in r["data"][:1]:
                 usd = liq["usd_value"]
                 price = liq["price"]
                 side = "롱 강제청산" if liq["side"] == 2 else "숏 강제청산"
@@ -97,7 +97,6 @@ def start_monitor():
         print(f"[{datetime.now().strftime('%H:%M:%S')}] 체크 완료")  # 로깅
         
 
-
 def send_discord_alert(message):
     payload = {"content": message}
     try:
@@ -110,6 +109,8 @@ def send_discord_alert(message):
     except Exception as e:
         print(f"[🚨] Discord 전송 에러: {e}")
 
+if __name__ == "__main__":
+    start_monitor()
 
 
 
