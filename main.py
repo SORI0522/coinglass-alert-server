@@ -85,13 +85,13 @@ def send_discord_alert(message):
     payload = {"content": message}
     try:
         r = requests.post(DISCORD_WEBHOOK_URL, json=payload)
+        print(f"[DEBUG] Discord 응답 코드: {r.status_code}, 응답: {r.text}")
         if r.status_code != 204:
             print(f"[❗] Discord 전송 실패: {r.status_code} / {r.text}")
         else:
             print("[✅] Discord 알림 전송 성공")
     except Exception as e:
         print(f"[🚨] Discord 전송 에러: {e}")
-
 
 
 
