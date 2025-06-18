@@ -6,8 +6,8 @@ from datetime import datetime
 API_KEY = "c85b840453a5460bb16a5fa8a6e217f3"
 WEBHOOK_URL = "https://coinglass-alert-server.onrender.com/alert"
 DISCORD_WEBHOOK_URL = "https://discordapp.com/api/webhooks/1384457126532878438/r35TL3ibVrDLQWHxuKxMzemkoHmxIscCwGyZxULzWnxuUd_FjkaJ3zGhfyhd4XF9T0nC"
-SYMBOLS = ["BTC", "ETH", "SOL", "XRP", "HYPE", "DOGE", "SUI", "ADA", "1000PEPE"]
-INTERVAL = "m15"
+SYMBOLS = ["BTC", "ETH", "SOL", "XRP"]
+INTERVAL = "m5"
 headers = {"accept": "application/json", "CG-API-KEY": API_KEY}
 
 def get_alerts(symbol):
@@ -42,7 +42,7 @@ def get_alerts(symbol):
         r = requests.get(f"https://open-api-v4.coinglass.com/api/futures/taker-buy-sell-volume/exchange-list?symbol={symbol}&range={INTERVAL}", headers=headers).json()
         if "data" in r and "buy_ratio" in r["data"]:
             buy = r["data"]["buy_ratio"]
-            if buy >= 55 or buy <= 45:
+            if buy >= 60 or buy <= 40:
                 bias = "롱 우세 📈" if buy >= 55 else "숏 우세 📉"
                 alerts.append(f"{symbol} Taker Buy 이상치: {buy:.2f}% → {bias}")
 
@@ -87,7 +87,7 @@ def start_monitor():
                 send_alert(m)
                 send_discord_alert(m)     # 디스코드 알림 전송                
         print(f"[{datetime.now().strftime('%H:%M:%S')}] 체크 완료")  # ← 이 줄 들여쓰기 위치 주의!
-        time.sleep(900)
+        time.sleep(300)
 
 
 
