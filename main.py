@@ -2,6 +2,12 @@
 import requests, time
 from datetime import datetime
 
+def wait_until_next_quarter():
+    now = datetime.now()
+    wait_sec = 900 - (now.minute % 15) * 60 - now.second
+    print(f"[⏳] {wait_sec}초 대기 후 실행...")
+    time.sleep(wait_sec)
+
 API_KEY = "c85b840453a5460bb16a5fa8a6e217f3"
 WEBHOOK_URL = "https://coinglass-alert-server.onrender.com/alert"
 DISCORD_WEBHOOK_URL = "https://discordapp.com/api/webhooks/1384457126532878438/r35TL3ibVrDLQWHxuKxMzemkoHmxIscCwGyZxULzWnxuUd_FjkaJ3zGhfyhd4XF9T0nC"
@@ -78,6 +84,7 @@ def send_alert(msg):
 
 def start_monitor():
     while True:
+        wait_until_next_quarter()
         for sym in SYMBOLS:
             msgs = get_alerts(sym)
             for m in msgs:
@@ -85,7 +92,7 @@ def start_monitor():
                 send_alert(m)
                 send_discord_alert(m)     # 디스코드 알림 전송                
         print(f"[{datetime.now().strftime('%H:%M:%S')}] 체크 완료")  # ← 이 줄 들여쓰기 위치 주의!
-        time.sleep(300)
+        time.sleep(900)
 
 
 
