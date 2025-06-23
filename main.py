@@ -39,9 +39,7 @@ def get_alerts(symbol):
             current = now_data["top_position_long_percent"]
             if abs(change) >= 0.1:
                 alerts.append(f"{symbol} Top 포지션 비율 급변: {change:+.2f}%")
-            if current >= 70 or current <= 30:
-                alerts.append(f"{symbol} Top 포지션 비율 극단치: {current:.2f}%")
-
+            
         # 3. 글로벌 계정 롱숏 비율
         r = requests.get(f"https://open-api-v4.coinglass.com/api/futures/global-long-short-account-ratio/history?exchange=Binance&symbol={symbol}USDT&interval={INTERVAL}", headers=headers).json()
         if "data" in r and len(r["data"]) >= 2:
